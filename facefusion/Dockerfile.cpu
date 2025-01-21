@@ -1,0 +1,22 @@
+FROM python:3.12
+
+ARG FACEFUSION_VERSION=3.1.1
+ENV GRADIO_SERVER_NAME=0.0.0.0
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+
+WORKDIR /facefusion
+
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    set -eux; \
+    sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list.d/ubuntu.sources; \
+    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources; \
+    apt-get update ; \
+    apt-get install -y --no-install-recommends \
+        curl \
+        ffmpeg
+
+RUN --mount=type=cache,target=/root/.cache/pip set -eux;  \
+    git clone --depth=1 --branch ${FACEFUSION_VERSION} --single-branch https://github.com/yandy/facefusion.git . ; \
+    pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/simple ; \
+    python install.py --onnxruntime default --skip-conda
