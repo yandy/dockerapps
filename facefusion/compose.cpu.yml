@@ -2,7 +2,7 @@ services:
  facefusion-cpu:
   build:
    context: .
-   dockerfile: docker/Dockerfile.cpu
+   dockerfile: Dockerfile.cpu
   command: [ 'python', 'facefusion.py', 'run' ]
   volumes:
   - .assets:/facefusion/.assets

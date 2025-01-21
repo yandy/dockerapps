@@ -2,7 +2,7 @@ services:
  facefusion-cuda:
   build:
    context: .
-   dockerfile: docker/Dockerfile.cuda
+   dockerfile: Dockerfile.cuda
   command: [ 'python', 'facefusion.py', 'run', '--execution-providers', 'cuda' ]
   volumes:
   - .assets:/facefusion/.assets
