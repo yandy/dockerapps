@@ -1,0 +1,26 @@
+FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04
+
+ARG COMFYUI_VERSION=v0.3.12
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+
+WORKDIR /comfyui
+
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    --mount=type=cache,target=/root/.cache/pip \
+    set -eux; \
+    sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list.d/ubuntu.sources; \
+    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources; \
+    apt-get update ; \
+    apt-get install -y --no-install-recommends \
+        python3.12 \
+        python-is-python3 \
+        pip \
+        curl \
+        git ;\
+    pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu124
+
+RUN --mount=type=cache,target=/root/.cache/pip set -eux;  \
+    git clone --depth=1 --branch ${COMFYUI_VERSION} --single-branch https://github.com/comfyanonymous/ComfyUI.git . ; \
+    pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/simple ; \
+    pip install -r requirements.txt
