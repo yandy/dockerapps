@@ -1,0 +1,15 @@
+services:
+  cuda:
+    image: ollama/ollama
+    volumes:
+      - .ollama:/root/.ollama
+    ports:
+      - 11434:11434
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['0']
+              capabilities: [gpu]
