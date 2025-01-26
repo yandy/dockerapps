@@ -1,8 +1,8 @@
 services:
-  comfyui-cuda:
+  cuda:
     build:
       context: .
-      dockerfile: Dockerfile.comfyui.cuda
+      dockerfile: Dockerfile.cuda
     command:
       - python
       - main.py
