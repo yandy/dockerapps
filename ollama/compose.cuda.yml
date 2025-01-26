@@ -1,11 +1,28 @@
 services:
-  cuda:
+  ollama-cuda:
     image: ollama/ollama
     volumes:
       - .ollama:/root/.ollama
     ports:
       - 11434:11434
     ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['0']
+              capabilities: [gpu]
+  openwebui-cuda:
+    image: ghcr.io/open-webui/open-webui:cuda
+    volumes:
+      - .openwebui:/app/backend/data
+    ports:
+      - 8080:8080
+    ipc: host
+    environment:
+      - WEBUI_AUTH=False
+      - OLLAMA_BASE_URL=http://ollama-cuda:11434
     deploy:
       resources:
         reservations:
