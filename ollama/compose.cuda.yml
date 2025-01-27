@@ -6,6 +6,9 @@ services:
     ports:
       - 11434:11434
     ipc: host
+    environment:
+      - OLLAMA_DEBUG=0
+      - GIN_MODE=release
     deploy:
       resources:
         reservations:
