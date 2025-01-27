@@ -4,22 +4,42 @@ run apps with docker
 ## 1. comfyui
 
 ```pwsh
-docker compose -f $PWD\comfyui\compose.cuda.yml up -d
+# setup and start (for first time)
+./dc-comfyui.ps1 up -d
+
+# stop
+./dc-comfyui.ps1 stop
+
+# start
+./dc-comfyui.ps1 start
 ```
 > Open in browser:  http://localhost:8188
 
 ## 2. facefusion
 
 ```pwsh
-docker compose -f $PWD\facefusion\compose.cuda.yml up -d
+# setup and start (for first time)
+./dc-facefusion.ps1 up -d
+
+# stop
+./dc-facefusion.ps1 stop
+
+# start
+./dc-facefusion.ps1 start
 ```
 > Open in browser:  http://localhost:7870
 
 ## 3. ollama and open-webui
 
 ```pwsh
-docker compose -f $PWD\ollama\compose.cuda.yml up -d
-docker compose -f $PWD\ollama\compose.cuda.yml exec cuda ollama run deepseek-r1:7b
+# setup and start (for first time)
+./dc-ollama.ps1 up -d
+
+# stop
+./dc-ollama.ps1 stop
+
+# start
+./dc-ollama.ps1 start
 ```
 > Open WebUI in browser: http://localhost:8080 ;
 > Access Ollama API at: http://localhost:11434

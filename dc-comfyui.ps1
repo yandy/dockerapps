@@ -1,5 +1,5 @@
 # Define default arguments
-$defaultArgs = "up -d"
+$defaultArgs = "--help"
 
 # Get command-line arguments, if any
 $args = $args -join " "
