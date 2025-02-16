@@ -9,9 +9,10 @@ if [ -z "$1" ]; then
   set -- -h
 fi
 
+# Display help information if the 'start' or 'up' args is provided
+if [[ "$@" =~ "up" || "$@" =~ "start" ]]; then
+  echo -e "Open in browser:\nhttp://localhost:7870"
+fi
+
 # Execute the Docker Compose command using the specified CUDA configuration file
 exec docker compose -f "$root/facefusion/compose.cuda.yml" "$@"
-
-if [[ "$@" =~ "up" || "$@" =~ "start" ]]; then
-echo -e "Open in browser:\nhttp://localhost:7870"
-fi
