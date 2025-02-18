@@ -1,0 +1,17 @@
+services:
+  cuda:
+    image: ghcr.io/open-webui/open-webui:cuda
+    volumes:
+      - .openwebui:/app/backend/data
+    ports:
+      - 8080:8080
+    ipc: host
+    environment:
+      - WEBUI_AUTH=False
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['0']
+              capabilities: [gpu]
