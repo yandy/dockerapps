@@ -6,8 +6,17 @@ if ($args.Count -eq 0) {
     $args = @("--help")
 }
 
-# Execute docker compose command
-docker compose -f "$root\facefusion\compose.cuda.yml" @args
+# Check if 'nvidia-smi' command is available (indicating CUDA/GPU support)
+if (Get-Command nvidia-smi -ErrorAction SilentlyContinue) {
+    # If CUDA is available, set the device to "cuda"
+    $device = "cuda"
+} else {
+    # If CUDA is not available, set the device to "cpu"
+    $device = "cpu"
+}
+
+# Execute the Docker Compose command using the appropriate configuration file
+docker compose -f "$root\facefusion\compose.$device.yml" @args
 
 # Check if @args contains "start" or "up"
 if ($args -contains "start" -or $args -contains "up") {
