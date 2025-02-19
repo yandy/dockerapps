@@ -1,0 +1,23 @@
+services:
+  cpu:
+    build:
+      context: .
+      dockerfile: Dockerfile.cpu
+    command:
+      - python
+      - main.py
+      - --listen
+      - 0.0.0.0
+      - --output-directory
+      - /comfyui/output
+      - --temp-directory
+      - /comfyui/tmp
+      - --input-directory
+      - /comfyui/input
+    volumes:
+      - .models:/comfyui/models
+      - .output:/comfyui/output
+      - .input:/comfyui/input
+      - .tmp:/comfyui/tmp
+    ports:
+      - 8188:8188

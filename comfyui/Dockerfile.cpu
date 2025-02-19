@@ -1,21 +1,22 @@
 FROM python:3.12
 
-ARG FACEFUSION_VERSION=fc
-ENV GRADIO_SERVER_NAME=0.0.0.0
+ARG COMFYUI_VERSION=v0.3.12
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
-WORKDIR /facefusion
+WORKDIR /comfyui
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    --mount=type=cache,target=/root/.cache/pip \
     set -eux; \
     sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources; \
     apt-get update ; \
     apt-get install -y --no-install-recommends \
         curl \
-        ffmpeg
+        git ;\
+    pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
 
 RUN --mount=type=cache,target=/root/.cache/pip set -eux;  \
-    git clone --depth=1 --branch ${FACEFUSION_VERSION} --single-branch https://github.com/yandy/facefusion.git . ; \
+    git clone --depth=1 --branch ${COMFYUI_VERSION} --single-branch https://github.com/comfyanonymous/ComfyUI.git . ; \
     pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/simple ; \
-    python install.py --onnxruntime default --skip-conda
+    pip install -r requirements.txt

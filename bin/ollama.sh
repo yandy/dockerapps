@@ -15,5 +15,14 @@ if [[ "$@" =~ "up" || "$@" =~ "start" ]]; then
   echo -e "Access Ollama API at:\nhttp://localhost:11434"
 fi
 
-# Execute the Docker Compose command using the specified CUDA configuration file
-exec docker compose -f "$root/ollama/compose.cuda.yml" "$@"
+# Check if 'nvidia-smi' command is available (indicating CUDA/GPU support)
+if command -v nvidia-smi &> /dev/null; then
+    # If CUDA is available, set the device to "cuda"
+    device="cuda"
+else
+    # If CUDA is not available, set the device to "cpu"
+    device="cpu"
+fi
+
+# Execute the Docker Compose command using the appropriate configuration file
+exec docker compose -f "$root/ollama/compose.$device.yml" "$@"
