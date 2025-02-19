@@ -5,13 +5,13 @@ run apps with docker
 
 ```pwsh
 # setup and start (for first time)
-./dc-comfyui.ps1 up -d
+./bin/comfyui.ps1 up -d
 
 # stop
-./dc-comfyui.ps1 stop
+./bin/comfyui.ps1 stop
 
 # start
-./dc-comfyui.ps1 start
+./bin/comfyui.ps1 start
 ```
 > Open in browser:  http://localhost:8188
 
@@ -19,13 +19,13 @@ run apps with docker
 
 ```pwsh
 # setup and start (for first time)
-./dc-facefusion.ps1 up -d
+./bin/facefusion.ps1 up -d
 
 # stop
-./dc-facefusion.ps1 stop
+./bin/facefusion.ps1 stop
 
 # start
-./dc-facefusion.ps1 start
+./bin/facefusion.ps1 start
 ```
 > Open in browser:  http://localhost:7870
 
@@ -33,13 +33,27 @@ run apps with docker
 
 ```pwsh
 # setup and start (for first time)
-./dc-ollama.ps1 up -d
+./bin/ollama.ps1 up -d
 
 # stop
-./dc-ollama.ps1 stop
+./bin/ollama.ps1 stop
 
 # start
-./dc-ollama.ps1 start
+./bin/ollama.ps1 start
 ```
 > Open WebUI in browser: http://localhost:8080 ;
 > Access Ollama API at: http://localhost:11434
+
+## 4. open-webui
+
+```pwsh
+# setup and start (for first time)
+./bin/openwebui.ps1 up -d
+
+# stop
+./bin/openwebui.ps1 stop
+
+# start
+./bin/openwebui.ps1 start
+```
+> Open WebUI in browser: http://localhost:8080 ;
