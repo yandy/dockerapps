@@ -20,6 +20,5 @@ docker compose -f "$root\ollama\compose.$device.yml" @args
 
 # Check if @args contains "start" or "up"
 if ($args -contains "start" -or $args -contains "up") {
-Write-Host "Open WebUI in browser:`nhttp://localhost:8080`n"
 Write-Host "Access Ollama API at:`nhttp://localhost:11434"
 }

@@ -11,7 +11,6 @@ fi
 
 # Display help information if the 'start' or 'up' args is provided
 if [[ "$@" =~ "up" || "$@" =~ "start" ]]; then
-  echo -e "Open WebUI in browser:\nhttp://localhost:8080\n"
   echo -e "Access Ollama API at:\nhttp://localhost:11434"
 fi
 
