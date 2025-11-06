@@ -1,6 +1,6 @@
-FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04
+FROM nvidia/cuda:12.9.1-cudnn-runtime-ubuntu24.04
 
-ARG COMFYUI_VERSION=v0.3.12
+ARG COMFYUI_VERSION=v0.3.66
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 WORKDIR /comfyui
@@ -17,8 +17,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         python-is-python3 \
         pip \
         curl \
-        git ;\
-    pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu124
+        git
 
 RUN --mount=type=cache,target=/root/.cache/pip set -eux;  \
     git clone --depth=1 --branch ${COMFYUI_VERSION} --single-branch https://github.com/comfyanonymous/ComfyUI.git . ; \
